@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
+    color: "#007AFF",
     fontWeight: "bold",
     marginBottom: 20,
   },
@@ -27,6 +28,7 @@ export const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   arrow: {
+    color: "#007AFF",
     fontSize: 20,
     paddingHorizontal: 10,
   },
