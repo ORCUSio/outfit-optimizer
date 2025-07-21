@@ -1,43 +1,18 @@
+import { usePanGesture } from "@/hooks/outfitPage";
+import { SliderProps } from "@/types/outfitPage/slider";
 import { View } from "react-native";
 import {
-  Gesture,
   GestureDetector,
-  GestureHandlerRootView,
+  GestureHandlerRootView
 } from "react-native-gesture-handler";
-
-export const Slider = ({
-  children,
-  index,
-  setIndex,
-  uris
-}: {
-  children: React.ReactNode;
-  index: number;
-  setIndex: (index: number) => void;
-  uris: string[];
-}) => {
+export const Slider = ({ children, index, setIndex, uris }: SliderProps) => {
   const handleLeft = () => {
     setIndex((index - 1 + uris.length) % uris.length);
   };
   const handleRight = () => {
     setIndex((index + 1) % uris.length);
   };
-  const panGesture = Gesture.Pan()
-    .onEnd((event) => {
-      const { translationX, translationY } = event;
-      if (Math.abs(translationX) > Math.abs(translationY)) {
-        // Horizontal swipe
-        if (translationX < 0) {
-          // Swiped left
-          handleRight();
-        } else if (translationX > 0) {
-          // Swiped right
-          handleLeft();
-        }
-      }
-    })
-    .runOnJS(true);
-
+  const panGesture = usePanGesture(handleRight, handleLeft);
   return (
     <GestureHandlerRootView
       style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
