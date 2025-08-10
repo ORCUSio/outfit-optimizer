@@ -23,7 +23,6 @@ export function usePanGesture(handleRight: () => void, handleLeft: () => void) {
   const panGesture = Gesture.Pan()
 
     .onUpdate((e) => {
-      console.log("Pan gesture update:", e.translationX);
       if (onLeft.value) {
         // if (position.value < 20) {
         pressed.value = true;
@@ -51,15 +50,14 @@ export function usePanGesture(handleRight: () => void, handleLeft: () => void) {
         if (translationX < 0) {
           // Swiped left
           pressed.value = false;
-          angle.value = startAngle.value;
           handleRight();
         } else if (translationX > 0) {
           // Swiped right
-          angle.value = startAngle.value;
           pressed.value = false;
           handleLeft();
         }
       }
+      angle.value = startAngle.value;
     })
     .runOnJS(true);
 
