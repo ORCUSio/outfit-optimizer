@@ -48,12 +48,9 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name="outfit"
+          name="(outfit)/[id]"
           options={{
-            title: "Outfit",
-            tabBarIcon: ({ color }) => (
-              <IconSymbol size={28} name="tshirt.fill" color={color} />
-            ),
+            href: null,
           }}
         />
       </Tabs>

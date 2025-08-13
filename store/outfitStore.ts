@@ -6,7 +6,7 @@ export const outfitStore = create<OutfitStoreType>((set) => ({
       name: "streetwear",
       id: "1",
       image:
-        "https://l6jg1o9dee.ufs.sh/f/Vkdt1CIPD4KcVvBI0WPD4Kc69CZkhMjSRXlLoQyFx3NfYtsv",
+        "https://l6jg1o9dee.ufs.sh/f/Vkdt1CIPD4Kc6iYH8kfVjzLxYqksW39ZNy1oUGROJKCu0HFD",
       tshirts: [
         "https://l6jg1o9dee.ufs.sh/f/Vkdt1CIPD4KcdchvWsT3JpPFVC789n06OMe4oNZQAWy12gDh",
         "https://l6jg1o9dee.ufs.sh/f/Vkdt1CIPD4KcD8nVPVQEeuRdV2TUcGxAjgozBXCFlZPQLWrf",

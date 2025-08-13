@@ -5,26 +5,27 @@ import { OutfitInterface } from "@/types/outfitStore";
 import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Text } from "react-native";
+
 const CompleteOutfitScreen = () => {
-  const { id  } = useLocalSearchParams();
+  const { id } = useLocalSearchParams();
   const outfits = outfitStore((state: any) => state.outfits);
-  const [currentOutfits, setcurrentOutfits] = useState<CompleteOutfitProps>();
+  const [currentoutfits, setcurrentOutfits] = useState<CompleteOutfitProps>();
   useEffect(() => {
     const AllValuesCurrentOutfitObject = outfits.find(
       (outfit: OutfitInterface) => String(id) === String(outfit.id)
     );
     const {
-      id: outiftID,
+      id: outfitid,
       image,
       name,
-      ...currentOutfits
+      ...currentoutfitsDestructured
     } = AllValuesCurrentOutfitObject;
-    setcurrentOutfits(currentOutfits);
+    setcurrentOutfits(currentoutfitsDestructured);
   }, []);
   return (
     <>
       <Text>Outfit Screen</Text>
-      {currentOutfits ? <CompoleteOutfit {...currentOutfits} /> : <></>}
+      {currentoutfits ? <CompoleteOutfit {...currentoutfits} /> : <></>}
     </>
   );
 };

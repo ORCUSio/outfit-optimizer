@@ -1,32 +1,58 @@
 import { outfitStore } from "@/store";
 import { styles } from "@/styles/explorePage";
-import { Link } from "expo-router";
+import { OutfitInterface } from "@/types/outfitStore";
+import { useRouter } from "expo-router";
 import React from "react";
-import { Image, ScrollView, Text, View } from "react-native";
-
+import { Image, Pressable, ScrollView, Text } from "react-native";
+import Animated, {
+  runOnJS,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
+const basescale = 1;
 export default function ExploreScreen() {
+  const router = useRouter();
   const AllOutfits = outfitStore((state: any) => state.outfits);
- 
+  const scalevalue = useSharedValue(basescale);
 
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          scale: scalevalue.value,
+        },
+      ],
+    };
+  });
+
+  const handleAnimationbyPress = (outfit: OutfitInterface) => {
+    scalevalue.value = withTiming(1.05, { duration: 120 }, (finished) => {
+      if (finished) {
+        scalevalue.value = withTiming(1, { duration: 120 }, () => {
+          runOnJS(router.navigate)(`/(outfit)/${outfit.id}`);
+        });
+      }
+    });
+  };
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {AllOutfits.map((outfit: any) => (
-        <Link
-          href={{
-            pathname: "/(tabs)/(outfit)/[id]",
-            params: { id: outfit.id },
-          }}
+      {AllOutfits.map((outfit: OutfitInterface) => (
+        <Pressable
           key={outfit.id}
+          onPress={() => {
+            handleAnimationbyPress(outfit);
+          }}
         >
-          <View style={styles.card}>
+          <Animated.View style={[styles.card, animatedStyle]}>
             <Image
-              source={outfit.image}
+              source={{ uri: outfit.image }}
               style={styles.productImage}
               resizeMode="contain"
             />
             <Text style={styles.productName}>{outfit.name}</Text>
-          </View>
-        </Link>
+          </Animated.View>
+        </Pressable>
       ))}
     </ScrollView>
   );
